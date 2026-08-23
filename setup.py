@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import sys
+import shutil
 from itertools import chain
 from typing import TYPE_CHECKING, ClassVar, Sequence
 
@@ -238,7 +239,7 @@ class CustomBuildExt(build_ext):
     def build_extension(self, ext: Extension) -> None:
         nb_dir = "nanobind/"
         if not os.path.exists(nb_dir):
-            os.symlink(os.path.dirname(nb.source_dir()), nb_dir)
+            shutil.copytree(os.path.dirname(nb.source_dir()), nb_dir)
 
         # remove simd sources, we will build them conditionally below
         # only added directly so they get included in sdist

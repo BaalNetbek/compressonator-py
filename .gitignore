@@ -3,6 +3,7 @@ test.py
 /wip
 *.exe
 build/
+nanobind
 
 # Ruff
 .ruff_cache/
