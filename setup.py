@@ -40,12 +40,12 @@ class BuildPart:
 class CompressonatorPy(BuildPart):
     sources = [
         "compressonator_pyc/nano.cpp",
-        os.path.join(nb.source_dir(), "nb_combined.cpp"),
+        "nanobind/src/nb_combined.cpp", 
     ]
     include_dirs = [
         nb.include_dir(),
         os.path.join(
-            os.path.dirname(nb.source_dir()),
+            "nanobind/src/"
             "ext",
             "robin_map",
             "include",
@@ -241,6 +241,10 @@ class CustomBuildExt(build_ext):
             )
 
     def build_extension(self, ext: Extension) -> None:
+        nb_dir = "nanobind/"
+        if not os.path.exists(nb_dir):
+            os.symlink(os.path.dirname(nb.source_dir()), nb_dir)
+
         # remove simd sources, we will build them conditionally below
         # only added directly so they get included in sdist
         for src in CompressonatorCoreSIMD.sources:
