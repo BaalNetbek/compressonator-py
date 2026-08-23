@@ -43,13 +43,8 @@ class CompressonatorPy(BuildPart):
         "nanobind/src/nb_combined.cpp", 
     ]
     include_dirs = [
-        nb.include_dir(),
-        os.path.join(
-            "nanobind/src/"
-            "ext",
-            "robin_map",
-            "include",
-        ),
+        "nanobind/include", 
+        "nanobind/ext/robin_map/include",
     ]
 
 
